@@ -1,0 +1,34 @@
+alias cdd="ranger"
+alias cd..="cd .."
+alias ps="ps auxf --forest"
+alias vim="nvim -p"
+alias cmatrix="cmatrix -C magenta"
+
+alias rm="rm -i"
+alias cp='cp -i'
+alias mv='mv -i'
+alias mkdir="mkdir -pv"
+
+
+alias ll="ls -ltrh"
+alias la="ls -ltrah"
+alias l="ls -ltrh"
+
+alias i3rc='${=EDITOR} ~/.config/i3'
+alias zshrc='${=EDITOR} ~/.zshrc'
+alias nvimrc='${=EDITOR} ~/.config/nvim/init.vim'
+alias aliasrc='${=EDITOR} ~/.config/aliasrc'
+alias sshrc='${=EDITOR} ~/.ssh/config'
+alias arc='${=EDITOR} ~/.config/alacritty/alacritty.yml'
+
+alias http='python -m http.server 9000'
+
+# Full Custom
+alias at='alacritty-themes'
+alias gp='git pull'
+
+# Use gc https://.... 
+alias gc='git clone'
+
+# Use gb new-branch from-branch
+alias gb='git checkout -b' 

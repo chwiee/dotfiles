@@ -1,0 +1,295 @@
+#  ~* Wallace Bruno (chwiee) i3 confg
+
+##########################################################################
+## ~* Basic configuration
+##########################################################################
+
+#set $term --no-startup-id urxvt
+#set $term --no-startup-id alacritty
+set $mod Mod4
+
+set $shutdown sudo -A shutdown -h now
+set $reboot sudo -A reboot
+set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
+set $hibernate sudo -A systemctl suspend
+
+##########################################################################
+## ~* Fonts
+##########################################################################
+
+# font pango:Fira Code 13
+
+##########################################################################
+## ~* Startup applications
+##########################################################################
+
+# - Native i3 startup application
+
+## -- arandr 1920x1080 notebook monitor and Wallpapers (feh)
+exec --no-startup-id exec
+
+## -- Others
+exec --no-startup-id /usr/lib/polkit-gnome-authentication-agent-1
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id pacman-tray
+exec --no-startup-id clipit
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+
+# exec --no-startup-id blueman-applet
+# exec --no-startup-id xautolock -time 10 -locker blurlock
+
+##########################################################################
+## ~* Binds
+##########################################################################
+
+# - Applications
+
+## -- Terminal
+bindsym $mod+Return exec $term
+
+## -- Menus
+bindsym $mod+d exec --no-startup-id dmenu_recency
+bindsym $mod+z exec --no-startup-id morc_menu
+
+## -- Browser
+bindsym $mod+w exec --no-startup-id firefox
+bindsym $mod+Shift+w exec --no-startup-id chromium
+
+bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+
+## -- Volume
+bindsym $mod+Ctrl+m exec $term -e 'alsamixer'
+
+## -- File Manager
+bindsym $mod+o exec pcmanfm
+#bindsym $mod+o exec ranger
+
+# - Containers 
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+s gaps inner current plus 5
+bindsym $mod+Shift+s gaps inner current minus 5
+bindsym $mod+m bar mode toggle
+bindsym $mod+Shift+p layout toggle split
+bindsym $mod+p split toggle
+
+# - Configs
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# - Utils
+bindsym $mod+l exec --no-startup-id blurlock
+bindsym $mod+Shift+q kill
+
+##########################################################################
+## ~* Layouts
+##########################################################################
+
+# -- Layout Style
+bindsym $mod+F1 layout stacking
+bindsym $mod+F2 layout tabbed
+bindsym $mod+F3 layout toggle split
+
+##########################################################################
+## ~* Movement
+##########################################################################
+
+bindsym $mod+Left focus left
+bindsym $mod+Shift+Left move left 30
+bindsym $mod+Ctrl+Left move workspace to output left
+
+bindsym $mod+Down focus down
+bindsym $mod+Shift+Down move down 30
+bindsym $mod+Ctrl+Down move workspace to output down
+
+bindsym $mod+Up focus up
+bindsym $mod+Shift+Up move up 30
+bindsym $mod+Ctrl+Up move workspace to output up
+
+bindsym $mod+Right focus right
+bindsym $mod+Shift+Right move right 30
+bindsym $mod+Ctrl+Right move workspace to output right
+
+##########################################################################
+## ~* Workspaces definition
+##########################################################################
+
+workspace_auto_back_and_forth yes
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+# - Go to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+8 workspace $ws9
+
+# - Move focused container to workspace
+bindsym $mod+Ctrl+1 move container to workspace $ws1
+bindsym $mod+Ctrl+2 move container to workspace $ws2
+bindsym $mod+Ctrl+3 move container to workspace $ws3
+bindsym $mod+Ctrl+4 move container to workspace $ws4
+bindsym $mod+Ctrl+5 move container to workspace $ws5
+bindsym $mod+Ctrl+6 move container to workspace $ws6
+bindsym $mod+Ctrl+7 move container to workspace $ws7
+bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+8 move container to workspace $ws9
+
+# - Move container to workspace with focused
+bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+8 move container to workspace $ws9; workspace $ws9
+
+##########################################################################
+## ~* Window Resize
+##########################################################################
+
+bindsym $mod+r mode "resize"
+mode "resize" {         
+  # These bindings trigger as soon as you enter the resize mode
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+  bindsym l resize shrink width 5 px or 5 ppt
+  bindsym j resize grow height 5 px or 5 ppt
+  bindsym k resize shrink height 5 px or 5 ppt
+  bindsym h resize grow width 5 px or 5 ppt
+
+  # same bindings, but for the arrow keys
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+
+  # exit resize mode: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+##########################################################################
+## ~* i3 Appearance and Behavior
+##########################################################################
+
+# Hide ttile bar applications
+new_window 1pixel
+
+# - Border Pixels (int)
+default_border pixel 7
+default_floating_border 7
+
+# - Distance between window in pixel (int)
+gaps inner 10
+gaps outer 10
+
+# - Enable gaps (on/off)
+smart_gaps on
+
+# - Popup on fullscreen
+popup_during_fullscreen smart
+
+# - Window focus follows mouse (yes/no)
+focus_follows_mouse no
+
+# - Colors (open in GUI editor)
+
+#Class                      border  	bg      	txt     	indicator       border color
+client.focused              #4c7899 	#81A1C1 	#2E3440 	#2e9ef4  	    #7d1f70 
+client.focused_inactive     #333333 	#5d6678 	#ffffff 	#484e50   	    #5f676a
+client.unfocused            #333333 	#2E3440 	#888888 	#292d2e     	#2E3440
+client.urgent               #CB4B16 	#FDF6E3 	#1ABC9C 	#268BD2
+client.placeholder          #000000 	#0c0c0c 	#ffffff 	#000000
+client.background           #2B2C2B
+
+# - Bar & i3status
+
+bar {
+  i3bar_command i3bar
+  status_command i3status
+  position top 
+  # position bottom 
+
+  strip_workspace_numbers yes
+
+}
+
+##########################################################################
+## ~* i3 Gaps
+##########################################################################
+
+smart_gaps on
+smart_borders on
+
+# - Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+  bindsym o      mode "$mode_gaps_outer"
+  bindsym i      mode "$mode_gaps_inner"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+  bindsym plus  gaps inner current plus 5
+  bindsym minus gaps inner current minus 5
+  bindsym 0     gaps inner current set 0
+
+  bindsym Shift+plus  gaps inner all plus 5
+  bindsym Shift+minus gaps inner all minus 5
+  bindsym Shift+0     gaps inner all set 0
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+  bindsym plus  gaps outer current plus 5
+  bindsym minus gaps outer current minus 5
+  bindsym 0     gaps outer current set 0
+
+  bindsym Shift+plus  gaps outer all plus 5
+  bindsym Shift+minus gaps outer all minus 5
+  bindsym Shift+0     gaps outer all set 0
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+##########################################################################
+## ~* Menu Features
+##########################################################################
+
+bindsym $mod+0 mode "$mode_system"
+set $mode_system (l)ock | (e)xit | (r)eboot | (s)hutdown
+mode "$mode_system" {
+  bindsym l exec --no-startup-id i3exit lock, mode "default"
+  bindsym e exec --no-startup-id i3exit logout, mode "default"
+  bindsym r exec --no-startup-id i3exit reboot, mode "default"
+  bindsym s exec --no-startup-id i3exit shutdown, mode "default" 
+}
+
