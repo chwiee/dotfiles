@@ -42,12 +42,10 @@ install () {
         blueman
         arc-gtk-theme
         cmatrix
-        colorpicker
         cowsay
         feh
         git
         zsh
-        zsh-completions-git
     )
 
     for APP in ${APPS[@]}; do
@@ -92,7 +90,7 @@ config () {
       check $?
 
     printf "%-80s" "Create - picom      config" 
-      yes | cp ./config/picom ~/.config/picom.conf &>/dev/null
+      yes | cp ./config/picom.conf ~/.config/picom.conf &>/dev/null
       check $?
 
 #    printf "%-80s" "Create - rofi       config"
@@ -120,8 +118,6 @@ clear_f () {
         hexchat
         hplip
         avahi
-        gimp
-        vlc
     )
 
     for REMOVE in ${REMOVES[@]}; do
