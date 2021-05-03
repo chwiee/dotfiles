@@ -2,67 +2,65 @@
 
 # -- Manual Function
 man () {
-    echo " To use this script u need SUDO permission and follows flag:
+  echo " To use this script u need SUDO permission and follows flag:
 
-    wb-install.sh \$1 \$2
+  wb-install.sh \$1 \$2
 
-    \$1 :
-    man     -> To open manual 
-    install -> To install all customization
-    backup  -> To make backup all confgs 
+  \$1 :
+  man     -> To open manual 
+  install -> To install all customization
+  backup  -> To make backup all confgs 
 
-    \$2 :
-    all     -> All defaults customizations
-    select  -> To select customizations you want
-    
-    "
+  \$2 :
+  all     -> All defaults customizations
+  select  -> To select customizations you want
+  
+  "
 }
 
 # -- Check if last output code ($?) is 0 [ OK ] or > [ Fail ]  
 check () {
-    if [ $1 -eq 0 ]; then echo -e "[  Ok  ]" ; else echo -e "[ Fail ]" ; exit 1 ; fi
+  if [ $1 -eq 0 ]; then echo -e "[  Ok  ]" ; else echo -e "[ Fail ]" ; exit 1 ; fi
 }
 
 # -- Update and setup mirror function
 setup () {
-    printf "%-80s" "Set fast mirror and update system"
-    sudo pacman-mirrors --geoip &>/dev/null && sudo pacman -Syyu --noconfirm &>/dev/null
-    check $?
+  printf "%-80s" "Set fast mirror and update system"
+  sudo pacman-mirrors --geoip &>/dev/null && sudo pacman -Syyu --noconfirm &>/dev/null
+  check $?
 }
 
 # -- Install Function
 install () {
-    declare -a APPS=(
-        alacritty
-        arandr
-        i3-gaps
-        brave
-        firefox
-        ttf-fira-code
-        blueman
-        arc-gtk-theme
-        cmatrix
-        colorpicker
-        cowsay
-        feh
-        git
-        zsh
-        zsh-completions-git
-    )
+  declare -a APPS=(
+    alacritty
+    arandr
+    i3-gaps
+    brave
+    firefox
+    ttf-fira-code
+    blueman
+    arc-gtk-theme
+    cmatrix
+    cowsay
+    feh
+    git
+    zsh
+  )
 
-    for APP in ${APPS[@]}; do
-        if [[ $(pacman -Qs $APP | grep Nome | wc -l) -eq 0 ]]; then
-            printf "%-80s" "Install - $APP"
-            pacman -S $APP --noconfirm &>/dev/null
-            check $?
-        fi
-    done
+  for APP in ${APPS[@]}; do
+    if [[ $(pacman -Qs $APP | grep Nome | wc -l) -eq 0 ]]; then
+      printf "%-80s" "Install - $APP"
+      pacman -S $APP --noconfirm &>/dev/null
+      check $?
+    fi
+  done
 
-    declare -a YAY_PACKAGES=(
-        nerd-fonts-complete
-        visual-studio-code-bin
-        alacritty-themes
-    )
+  declare -a YAY_PACKAGES=(
+    nerd-fonts-complete
+    visual-studio-code-bin
+    alacritty-themes
+  )
 
     for YAY_PACKAGE in ${YAY_PACKAGES[@]}; do
         yay -S $YAY_PACKAGE --noconfirm &>/dev/null
@@ -155,9 +153,13 @@ wb-init () {
 
 clear
 
-echo "* ~ Dotfile Initializing
-      = = = = = = = = = = = = =
-      By chwiee"
+echo "
+* ~ Dotfile Initializing
+= = = = = = = = = = = = =
+ Wallace Bruno Gentil :)
+
+ Some processes may take a few minutes please waiting :D
+"
 
 wb-init
 
