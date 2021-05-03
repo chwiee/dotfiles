@@ -7,7 +7,7 @@
 #set $term --no-startup-id urxvt
 #set $term --no-startup-id alacritty
 set $mod Mod4
-
+set $term alacritty
 set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
@@ -138,7 +138,7 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
-bindsym $mod+8 workspace $ws9
+bindsym $mod+9 workspace $ws9
 
 # - Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -149,7 +149,7 @@ bindsym $mod+Ctrl+5 move container to workspace $ws5
 bindsym $mod+Ctrl+6 move container to workspace $ws6
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
-bindsym $mod+Ctrl+8 move container to workspace $ws9
+bindsym $mod+Ctrl+9 move container to workspace $ws9
 
 # - Move container to workspace with focused
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
@@ -160,7 +160,7 @@ bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
-bindsym $mod+Shift+8 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 ##########################################################################
 ## ~* Window Resize
@@ -197,8 +197,8 @@ mode "resize" {
 new_window 1pixel
 
 # - Border Pixels (int)
-default_border pixel 7
-default_floating_border 7
+default_border pixel 3
+default_floating_border normal
 
 # - Distance between window in pixel (int)
 gaps inner 10
