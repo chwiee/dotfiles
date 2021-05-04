@@ -57,7 +57,7 @@ install () {
   done
 
   declare -a YAY_PACKAGES=(
-    nerd-fonts-complete
+    #nerd-fonts-complete
     visual-studio-code-bin
     alacritty-themes
   )
@@ -73,7 +73,7 @@ folder () {
     echo " ~ * Create folder Stage :"
 
     printf "%-80s" "Create folder tree in home"
-    mkdir -p ~/{cloud/{aws,azure},iac/{ansible,terraform},jenkins,kubernetes/{scripts,examples,helm},monitoring/{elk,zabbix,prometheus},scripts,hashcorp,python,docker} &>/dev/null
+    mkdir -p ~/{cloud/{aws,azure},iac/{ansible,terraform},jenkins,kubernetes/{scripts,examples,helm},monitoring/{elk,zabbix,prometheus,splunk},scripts,hashcorp,python,docker} &>/dev/null
     check $?
 }
 
@@ -101,16 +101,21 @@ config () {
 
     printf "%-80s" "Move wallpapers"
       cp ./wallpapers ~ &>/dev/null
+      check $?
 
 }
 
 plugins () {
-    echo " ~ * Plugin installing Stage :"
+    echo "
+     ~ * Plugin installing Stage :
+     "
     echo "Not have plugins to install"
 }
 
 clear_f () {
-    echo " ~ * Clearing Stage :"
+    echo "
+     ~ * Clearing Stage :
+     "
 
     declare -a REMOVES=(
         conky
@@ -145,10 +150,10 @@ wb-init () {
   config
 
   # - Step 4 - Install plugins in zsh, vim, kubectl, aws-cli, azure-cli
-  plugins
+  # plugins
 
   # - Step 5 - Clear local temp files and folders
-  clear_f 
+  # clear_f 
 }
 
 clear
@@ -163,5 +168,6 @@ echo "
 
 wb-init
 
+echo " ~* Install PICOM config from JONABURG-GIT (need execution manual)"
 printf "%-80s" "Install picom-jonaburg-git"
   yay -S picom-jonaburg-git
