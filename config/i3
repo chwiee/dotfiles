@@ -4,9 +4,9 @@
 ## ~* Basic configuration
 ##########################################################################
 
-#set $term --no-startup-id urxvt
-#set $term --no-startup-id alacritty
 set $mod Mod4
+set $alt Mod1
+
 set $term alacritty
 set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
@@ -17,7 +17,7 @@ set $hibernate sudo -A systemctl suspend
 ## ~* Fonts
 ##########################################################################
 
-# font pango:Fira Code 13
+font pango:Fira Code 13
 
 ##########################################################################
 ## ~* Startup applications
@@ -26,7 +26,7 @@ set $hibernate sudo -A systemctl suspend
 # - Native i3 startup application
 
 ## -- arandr 1920x1080 notebook monitor and Wallpapers (feh)
-exec --no-startup-id exec
+exec --no-startup-id exec feh --bg-fill --randomize ~/wallpapers/*
 
 ## -- Others
 exec --no-startup-id /usr/lib/polkit-gnome-authentication-agent-1
@@ -75,6 +75,11 @@ bindsym $mod+Shift+s gaps inner current minus 5
 bindsym $mod+m bar mode toggle
 bindsym $mod+Shift+p layout toggle split
 bindsym $mod+p split toggle
+
+# - Change border container
+bindsym $mod+u border none
+bindsym $mod+$alt+u border pixel 1
+bindsym $mod+Shift+u border normal
 
 # - Configs
 bindsym $mod+Shift+c reload
@@ -196,9 +201,9 @@ mode "resize" {
 # Hide ttile bar applications
 new_window 1pixel
 
-# - Border Pixels (int)
-default_border pixel 3
-default_floating_border normal
+# Configure border style <normal|1pixel|pixel xx|none|pixel>
+default_border pixel none
+default_floating_border none
 
 # - Distance between window in pixel (int)
 gaps inner 10
