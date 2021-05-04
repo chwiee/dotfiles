@@ -104,6 +104,10 @@ config () {
       yes | cp ./config/i3 ~/.i3/config &>/dev/null
       check $?
 
+    printf "%-80s" "Create - alacritty  config"
+      yes | cp ./config/alacritty.yml ~/.config/alacritty/alacritty.yml &>/dev/null
+      check $?
+
 #    printf "%-80s" "Create - rofi       config"
 
 #    printf "%-80s" "Create - Xresource  config"
@@ -146,6 +150,20 @@ clear_f () {
 
 }
 
+picom_ic () {
+
+  echo " 
+  ~ * Install and Configure PICOM  
+  "
+
+  printf "%-80s" "Install picom-jonaburg-git"
+    yay -S picom-jonaburg-git 2>/dev/null
+    check $?
+
+  printf "%-80s" "Create - picom    config"
+    yes | cp ./config/picom.conf ~/.config/picom.conf
+    check $?
+}
 # -- Init default script
 wb-init () {
   # - Step 0 - Update and Set mirror
@@ -165,6 +183,9 @@ wb-init () {
 
   # - Step 5 - Clear local temp files and folders
   # clear_f 
+
+  # - Step 6 - Ext. install picom and configure
+  picom_ic
 }
 
 clear
@@ -184,6 +205,3 @@ if [ "$EUID" -ne 0 ]
 fi
 
 wb-init
-
-#printf "%-80s" "Install picom-jonaburg-git"
-#  yay -S picom-jonaburg-git 2>/dev/null
