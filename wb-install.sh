@@ -26,13 +26,23 @@ check () {
 
 # -- Update and setup mirror function
 setup () {
-  printf "%-80s" "Set fast mirror and update system"
-  sudo pacman-mirrors --geoip &>/dev/null && sudo pacman -Syyu --noconfirm &>/dev/null
+    echo " 
+    ~ * Setup the fast mirror and update system :
+    "
+  printf "%-80s" "Fast mirror"
+  sudo pacman-mirrors --geoip &>/dev/null
+  check $?
+
+  printf "%-80s" "Update system"
+  sudo pacman -Syyu --noconfirm &>/dev/null
   check $?
 }
 
 # -- Install Function
 install () {
+      echo " 
+    ~ * Installing apps Stage :
+    "
   declare -a APPS=(
     alacritty
     arandr
@@ -71,7 +81,9 @@ install () {
 
 # -- Create folder tree function
 folder () {
-    echo " ~ * Create folder Stage :"
+    echo " 
+    ~ * Create folder Stage :
+    "
 
     printf "%-80s" "Create folder tree in home"
     mkdir -p ~/{cloud/{aws,azure},iac/{ansible,terraform},jenkins,kubernetes/{scripts,examples,helm},monitoring/{elk,zabbix,prometheus,splunk},scripts,hashcorp,python,docker} &>/dev/null
@@ -80,7 +92,9 @@ folder () {
 
 # -- Configurate applications function
 config () {
-    echo " ~ * Config Stage :"
+    echo " 
+    ~ * Config Stage :
+    "
 
     printf "%-80s" "Create - aliasrc    config"
       cp ./config/aliasrc ~/.config/aliasrc &>/dev/null
@@ -88,10 +102,6 @@ config () {
 
     printf "%-80s" "Create - i3         config"
       yes | cp ./config/i3 ~/.i3/config &>/dev/null
-      check $?
-
-    printf "%-80s" "Create - picom      config" 
-      yes | cp ./config/picom ~/.config/picom.conf &>/dev/null
       check $?
 
 #    printf "%-80s" "Create - rofi       config"
@@ -115,7 +125,7 @@ plugins () {
 
 clear_f () {
     echo "
-     ~ * Clearing Stage :
+    ~ * Clearing Stage :
      "
 
     declare -a REMOVES=(
