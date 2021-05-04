@@ -20,7 +20,8 @@ man () {
 
 # -- Check if last output code ($?) is 0 [ OK ] or > [ Fail ]  
 check () {
-  if [ $1 -eq 0 ]; then echo -e "[  Ok  ]" ; else echo -e "[ Fail ]" ; exit 1 ; fi
+#  if [ $1 -eq 0 ]; then echo -e "[  Ok  ]" ; else echo -e "[ Fail ]" ; exit 1 ; fi
+  if [ $1 -eq 0 ]; then echo -e "[  Ok  ]" ; else echo -e "[ Fail ]" ; fi
 }
 
 # -- Update and setup mirror function
@@ -100,7 +101,7 @@ config () {
 #    printf "%-80s" "Create - zsh        config"
 
     printf "%-80s" "Move wallpapers"
-      cp ./wallpapers ~ &>/dev/null
+      cp -r ./wallpapers ~ &>/dev/null
       check $?
 
 }
@@ -161,13 +162,18 @@ clear
 echo "
 * ~ Dotfile Initializing
 = = = = = = = = = = = = =
- Wallace Bruno Gentil :)
+* ~ Wallace Bruno Gentil 
 
- Some processes may take a few minutes please waiting :D
+Some processes may take a few minutes please waiting...
+
 "
+
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root 'sudo'"
+  exit
+fi
 
 wb-init
 
-echo " ~* Install PICOM config from JONABURG-GIT (need execution manual)"
-printf "%-80s" "Install picom-jonaburg-git"
-  yay -S picom-jonaburg-git
+#printf "%-80s" "Install picom-jonaburg-git"
+#  yay -S picom-jonaburg-git 2>/dev/null
