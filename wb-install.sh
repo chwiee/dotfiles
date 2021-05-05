@@ -1,23 +1,5 @@
 #!/bin/bash
 
-# -- Manual Function
-man () {
-  echo " To use this script u need SUDO permission and follows flag:
-
-  wb-install.sh \$1 \$2
-
-  \$1 :
-  man     -> To open manual 
-  install -> To install all customization
-  backup  -> To make backup all confgs 
-
-  \$2 :
-  all     -> All defaults customizations
-  select  -> To select customizations you want
-  
-  "
-}
-
 # -- Check if last output code ($?) is 0 [ OK ] or > [ Fail ]  
 check () {
 #  if [ $1 -eq 0 ]; then echo -e "[  Ok  ]" ; else echo -e "[ Fail ]" ; exit 1 ; fi
@@ -26,9 +8,11 @@ check () {
 
 # -- Update and setup mirror function
 setup () {
-    echo " 
-    ~ * Setup the fast mirror and update system :
-    "
+
+  echo " 
+  ~ * Setup the fast mirror and update system :
+  "
+
   printf "%-80s" "Fast mirror"
   sudo pacman-mirrors --geoip &>/dev/null
   check $?
@@ -40,9 +24,11 @@ setup () {
 
 # -- Install Function
 install () {
-      echo " 
-    ~ * Installing apps Stage :
-    "
+
+  echo " 
+  ~ * Installing apps Stage :
+  "
+
   declare -a APPS=(
     alacritty
     arandr
@@ -68,85 +54,96 @@ install () {
   done
 
   declare -a YAY_PACKAGES=(
-    #nerd-fonts-complete
+    ttf-font-awesome-4
     visual-studio-code-bin
     alacritty-themes
   )
 
-    for YAY_PACKAGE in ${YAY_PACKAGES[@]}; do
-        yay -S $YAY_PACKAGE --noconfirm &>/dev/null
-    done
+  for YAY_PACKAGE in ${YAY_PACKAGES[@]}; do
+    yay -S $YAY_PACKAGE --noconfirm &>/dev/null
+    check $?
+  done
 
 }
 
 # -- Create folder tree function
 folder () {
-    echo " 
-    ~ * Create folder Stage :
-    "
 
-    printf "%-80s" "Create folder tree in home"
-    mkdir -p ~/{cloud/{aws,azure},iac/{ansible,terraform},jenkins,kubernetes/{scripts,examples,helm},monitoring/{elk,zabbix,prometheus,splunk},scripts,hashcorp,python,docker} &>/dev/null
-    check $?
+  echo " 
+  ~ * Create folder Stage :
+  "
+
+  printf "%-80s" "Create folder tree in home"
+  mkdir -p ~/{cloud/{aws,azure},iac/{ansible,terraform},jenkins,kubernetes/{scripts,examples,helm},monitoring/{elk,zabbix,prometheus,splunk},scripts,hashcorp,python,docker} &>/dev/null
+  check $?
+
 }
 
 # -- Configurate applications function
 config () {
-    echo " 
-    ~ * Config Stage :
-    "
 
-    printf "%-80s" "Create - aliasrc    config"
-      cp ./config/aliasrc ~/.config/aliasrc &>/dev/null
-      check $?
+  echo " 
+  ~ * Config Stage :
+  "
 
-    printf "%-80s" "Create - i3         config"
-      yes | cp ./config/i3 ~/.i3/config &>/dev/null
-      check $?
+  printf "%-80s" "Create - aliasrc    config"
+  cp ./config/aliasrc ~/.config/aliasrc &>/dev/null
+  check $?
 
-    printf "%-80s" "Create - alacritty  config"
-      yes | cp ./config/alacritty.yml ~/.config/alacritty/alacritty.yml &>/dev/null
-      check $?
+  printf "%-80s" "Create - i3         config"
+  yes | cp ./config/i3 ~/.i3/config &>/dev/null
+  check $?
 
-#    printf "%-80s" "Create - rofi       config"
+  printf "%-80s" "Create - alacritty  config"
+  yes | cp ./config/alacritty.yml ~/.config/alacritty/alacritty.yml &>/dev/null
+  check $?
 
-#    printf "%-80s" "Create - Xresource  config"
-
-#    printf "%-80s" "Create - zsh        config"
-
-    printf "%-80s" "Move wallpapers"
-      cp -r ./wallpapers ~ &>/dev/null
-      check $?
+  printf "%-80s" "Move wallpapers"
+  cp -r ./wallpapers ~ &>/dev/null
+  check $?
 
 }
 
 plugins () {
-    echo "
-     ~ * Plugin installing Stage :
-     "
-    echo "Not have plugins to install"
+
+  echo "
+  ~ * Plugin installing Stage :
+  "
+    
+  printf "%-80s" "Install - Syntax Highlighting on zsh"
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  check $?
+
+  printf "%-80s" "Install - Auto Sugestion on zsh"
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  check $?
+
+  printf "%-80s" "Install - Power Level 10k on zsh"
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  check $?
+
 }
 
 clear_f () {
-    echo "
-    ~ * Clearing Stage :
-     "
+  echo "
+  ~ * Clearing Stage :
+    "
 
-    declare -a REMOVES=(
-        conky
-        gufw
-        hexchat
-        hplip
-        avahi
-        gimp
-        vlc
-    )
+  declare -a REMOVES=(
+    conky
+    gufw
+    hexchat
+    hplip
+    avahi
+    gimp
+    vlc
+  )
 
-    for REMOVE in ${REMOVES[@]}; do
-        printf "%-80s" "Unistall - $REMOVE"
-        pacman -Rsc $REMOVE --noconfirm &>/dev/null
-        check $?
-    done
+  for REMOVE in ${REMOVES[@]}; do
+    printf "%-80s" "Unistall - $REMOVE"
+    pacman -Rsc $REMOVE --noconfirm &>/dev/null
+    check $?
+  done
 
 }
 
@@ -157,29 +154,31 @@ picom_ic () {
   "
 
   printf "%-80s" "Install picom-jonaburg-git"
-    yay -S picom-jonaburg-git 2>/dev/null
-    check $?
+  yay -S picom-jonaburg-git 2>/dev/null
+  check $?
 
   printf "%-80s" "Create - picom    config"
-    yes | cp ./config/picom.conf ~/.config/picom.conf
-    check $?
+  yes | cp ./config/picom.conf ~/.config/picom.conf
+  check $?
+
 }
+
 # -- Init default script
 wb-init () {
   # - Step 0 - Update and Set mirror
-#  setup
+  setup
 
   # - Step 1 - Install all dependencies
-#  install 
+  install 
 
   # - Step 2 - Create all folder to setup all applications and configurate S.O.
-#  folder
+  folder
 
   # - Step 3 - Configurate all application in ~/.config
   config
 
   # - Step 4 - Install plugins in zsh, vim, kubectl, aws-cli, azure-cli
-  # plugins
+   plugins
 
   # - Step 5 - Clear local temp files and folders
   # clear_f 
