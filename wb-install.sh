@@ -167,13 +167,13 @@ picom_ic () {
 # -- Init default script
 wb-init () {
   # - Step 0 - Update and Set mirror
-  setup
+#  setup
 
   # - Step 1 - Install all dependencies
-  install 
+#  install 
 
   # - Step 2 - Create all folder to setup all applications and configurate S.O.
-  folder
+#  folder
 
   # - Step 3 - Configurate all application in ~/.config
   config
