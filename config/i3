@@ -202,7 +202,7 @@ mode "resize" {
 new_window 1pixel
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border pixel none
+default_border none
 default_floating_border none
 
 # - Distance between window in pixel (int)
